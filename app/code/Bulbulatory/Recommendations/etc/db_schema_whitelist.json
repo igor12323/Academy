@@ -1,0 +1,18 @@
+{
+    "recommendation": {
+        "column": {
+            "recommendation_id": true,
+            "customer_id": true,
+            "email_address": true,
+            "hash": true,
+            "status": true,
+            "date_of_creation": true,
+            "date_of_confimation": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "RECOMMENDATION_HASH": true,
+            "RECOMMENDATION_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}
