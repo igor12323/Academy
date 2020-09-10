@@ -8,6 +8,8 @@ class Recommendation extends \Magento\Framework\Model\AbstractModel implements \
 
 	protected $_eventPrefix = 'bulbulatory_recommendations_recommendation';
 
+	protected $_eventObject = 'recommendation';
+
 	protected function _construct()
 	{
 		$this->_init('Bulbulatory\Recommendations\Model\ResourceModel\Recommendation');
@@ -20,8 +22,6 @@ class Recommendation extends \Magento\Framework\Model\AbstractModel implements \
 
 	public function getDefaultValues()
 	{
-		$values = [];
-
-		return $values;
+		return [];
 	}
 }

@@ -1,12 +1,14 @@
 <?php
 namespace Bulbulatory\Recommendations\Model\ResourceModel;
 
+use \Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use \Magento\Framework\Model\ResourceModel\Db\Context;
 
-class Recommendation extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class Recommendation extends AbstractDb
 {
 	
 	public function __construct(
-		\Magento\Framework\Model\ResourceModel\Db\Context $context
+		Context $context
 	)
 	{
 		parent::__construct($context);

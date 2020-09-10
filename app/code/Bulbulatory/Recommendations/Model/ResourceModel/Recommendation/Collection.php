@@ -1,10 +1,15 @@
 <?php
 namespace Bulbulatory\Recommendations\Model\ResourceModel\Recommendation;
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+
+use Bulbulatory\Recommendations\Model\Recommendation;
+use \Bulbulatory\Recommendations\Model\ResourceModel\Recommendation as RecommendationResource;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+class Collection extends AbstractCollection
 {
 	protected $_idFieldName = 'recommendation_id';
-	protected $_eventPrefix = 'bulbulatory_recommendations_recommendation';
-	protected $_eventObject = 'bulbulatory_recommendations';
+	protected $_eventPrefix = 'bulbulatory_recommendations_recommendation_collection';
+	protected $_eventObject = 'recommendation_collection';
 
 	/**
 	 * Define resource model
@@ -13,7 +18,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 	 */
 	protected function _construct()
 	{
-		$this->_init('Bulbulatory\Recommendations\Model\Recommendation', 'Bulbulatory\Recommendations\Model\ResourceModel\Recommendation');
+		$this->_init(Recommendation::class, RecommendationResource::class);
 	}
 
 }
