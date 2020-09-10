@@ -7,9 +7,7 @@ use \Magento\Framework\Model\ResourceModel\Db\Context;
 class Recommendation extends AbstractDb
 {
 	
-	public function __construct(
-		Context $context
-	)
+	public function __construct(Context $context)
 	{
 		parent::__construct($context);
 	}

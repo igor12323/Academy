@@ -6,7 +6,7 @@
             </argument>
         </arguments>
     </type>
-    <virtualType name="Bulbulatory\Recommendations\Model\ResourceModel\Recommendation\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="Bulbulatory\Recommendations\Model\ResourceModel\Recommendation\Collection" type="Bulbulatory\Recommendations\Ui\Component\Listing\RecommendationDataProvider">
         <arguments>
             <argument name="mainTable" xsi:type="string">recommendation</argument>
             <argument name="resourceModel" xsi:type="string">Bulbulatory\Recommendations\Model\ResourceModel\Recommendation</argument>
