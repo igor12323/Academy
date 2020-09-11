@@ -23,5 +23,10 @@ class Index extends \Magento\Backend\App\Action
 		return $resultPage;
 	}
 
+	protected function _isAllowed()
+	{
+ 		return $this->_authorization->isAllowed('Bulbulatory_Recommendations::recommendation');
+	}
+
 
 }
