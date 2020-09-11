@@ -8,7 +8,7 @@
         <column xsi:type="varchar" name="hash" length="255" unsigned="false" nullable="false" comment="Recommendation hash"/>
         <column xsi:type="boolean" name="status" default="0" unsigned="false" nullable="false" comment="Status (0: unconfirmed/ 1: confirmed)"/>
         <column xsi:type="datetime" name="creation_date" default="CURRENT_TIMESTAMP" unsigned="true" nullable="false" comment="Date of creation"/>
-        <column xsi:type="datetime" name="confimation_date" unsigned="false" nullable="true" comment="Date of confirmation"/>
+        <column xsi:type="datetime" name="confirmation_date" unsigned="false" nullable="true" comment="Date of confirmation"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="recommendation_id"/>
         </constraint>
