@@ -3,16 +3,16 @@ namespace Bulbulatory\Recommendations\Controller\Adminhtml\Recommendation;
  
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Bulbulatory\Recommendations\Model\Recommendation;
+use Bulbulatory\Recommendations\Api\RecommendationRepositoryInterface;
  
 class Delete extends Action
 {
-    protected $_model;
+    protected $recommendationRepository;
  
-    public function __construct(Context $context, Recommendation $model)
+    public function __construct(Context $context, RecommendationRepositoryInterface $recommendationRepository)
     {
         parent::__construct($context);
-        $this->_model = $model;
+        $this->recommendationRepository = $recommendationRepository;
     }
  
     protected function _isAllowed()
@@ -26,17 +26,15 @@ class Delete extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($id) {
             try {
-                $model = $this->_model;
-                $model->load($id);
-                $model->delete();
-                $this->messageManager->addSuccess(__('Recommendation deleted ',$id));
-                return $resultRedirect->setPath('*/*/');
+                $recommendation = $this->recommendationRepository->getById($id);
+                $this->recommendationRepository->delete($recommendation);
+                $this->messageManager->addSuccessMessage(__('Recommendation deleted.'));
             } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
-                return $resultRedirect->setPath('*/*/');
-            }
+                $this->messageManager->addError($e->getMessage());}
         }
+        else{
         $this->messageManager->addError(__('Recommendation does not exist.'));
+        }
         return $resultRedirect->setPath('*/*/');
     }
 }
