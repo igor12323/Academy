@@ -12,4 +12,7 @@
             <argument name="resourceModel" xsi:type="string">Bulbulatory\Recommendations\Model\ResourceModel\Recommendation</argument>
         </arguments>
     </virtualType>
+    <preference for="Bulbulatory\Recommendations\Api\RecommendationRepositoryInterface" type="Bulbulatory\Recommendations\Model\RecommendationRepository"/>
+    <preference for="Bulbulatory\Recommendations\Api\Data\RecommendationInterface" type="Bulbulatory\Recommendations\Model\Recommendation"/>
+    <preference for="Bulbulatory\Recommendations\Api\Data\RecommendationSearchResultInterface" type="Bulbulatory\Recommendations\Model\RecommendationSearchResult"/>
 </config>
