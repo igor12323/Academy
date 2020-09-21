@@ -49,7 +49,7 @@ class Recommendation extends AbstractExtensibleModel implements RecommendationIn
 
 	public function getCustomerId()
 	{
-		return $this->_getData(self::customer_ID);
+		return $this->_getData(self::CUSTOMER_ID);
 	}
 
 	public function setCustomerId($customer_id)
