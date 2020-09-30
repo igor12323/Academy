@@ -11,6 +11,10 @@ use Bulbulatory\Recommendations\Api\Data\RecommendationSearchResultInterfaceFact
 use Bulbulatory\Recommendations\Api\RecommendationRepositoryInterface;
 use Bulbulatory\Recommendations\Model\ResourceModel\Recommendation\Collection;
 use Bulbulatory\Recommendations\Model\ResourceModel\Recommendation;
+use Magento\Framework\Math\Random;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Framework\UrlInterface;
+use Bulbulatory\Recommendations\Helper\Email;
 
 class RecommendationRepository implements RecommendationRepositoryInterface
 {
@@ -28,12 +32,45 @@ class RecommendationRepository implements RecommendationRepositoryInterface
      * @var RecommendationSearchResultInterfaceFactory
      */
     private $searchResultFactory;
+
+     /**
+     * @var Random
+     */
+
+    private $random;
+
+     /**
+     * @var CustomerRepositoryInterface
+     */
  
+     private $customerRepository;
+
+      /**
+     * @var UrlInterface
+     */
+ 
+    private $urlBuilder;
+
+        /**
+     * @var Email
+     */
+ 
+    private $email;
+
+
     public function __construct(
+        Random $random,
+        UrlInterface $urlBuilder,
+        Email $email,
+        CustomerRepositoryInterface $customerRepository,
         RecommendationFactory $recommendationFactory,
         Recommendation $recommendationResource,
         RecommendationSearchResultInterfaceFactory $recommendationSearchResultInterfaceFactory
     ) {
+        $this->customerRepository=$customerRepository;
+        $this->urlBuilder=$urlBuilder;
+        $this->email=$email;
+        $this->random=$random;
         $this->recommendationFactory = $recommendationFactory;
         $this->recommendationResource = $recommendationResource;
         $this->searchResultFactory = $recommendationSearchResultInterfaceFactory;
@@ -48,6 +85,53 @@ class RecommendationRepository implements RecommendationRepositoryInterface
         }
         return $recommendation;
     }
+
+    public function getByHash($hash)
+    {
+        $recommendation = $this->recommendationFactory->create();
+        $recommendation->getResource()->load($recommendation, $hash, 'hash');
+
+        if (!$recommendation->getRecommendationId()) {
+            throw new NoSuchEntityException(__('Unable to find recommendation with hash "%1"', $hash));
+        }
+
+        return $recommendation;
+    } 
+
+    public function createRecommendation($senderId,$email)
+    {
+        $recommendation = $this->recommendationFactory->create();
+        $recommendation->setCustomerId($senderId);
+        $recommendation->setEmail($email);
+        $recommendation->setHash($this->random->getUniqueHash());
+        $recommendation->setStatus(false);
+        $this->recommendationResource->save($recommendation);  
+        $this->sendRecommendation($recommendation);
+    }
+
+    public function sendRecommendation(RecommendationInterface $recommendation)
+    {
+        $url = $this->urlBuilder->getUrl(
+            'bulbulatory_recommendations/recommendation/confirmRecommendation',
+            [
+                'hash' => $recommendation->getHash()
+            ]
+        );
+        $customer = $this->customerRepository->getById($recommendation->getCustomerId());
+        $templateVars = [
+            'recommendationUrl' => $url,
+            'customerName' => $customer->getFirstname()
+        ];
+        $this->email->sendEmail($recommendation->getEmail(), $templateVars);
+    }
+    
+    public function confirmRecommendation($hash)
+    {
+        $recommendation = $this->getByHash($hash);
+        $recommendation->setStatus(true);
+        $recommendation->setConfirmationDate(date("Y-m-d H:i:s"));
+        $this->recommendationResource->save($recommendation);
+    } 
 
     public function save(RecommendationInterface $recommendation)
     {

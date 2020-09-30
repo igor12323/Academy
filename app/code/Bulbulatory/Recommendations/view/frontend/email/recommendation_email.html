@@ -1,0 +1,11 @@
+{{template config_path="design/email/header_template"}}
+
+<div>
+    {{trans "Hello! Your friend %name recommends Bulbulatory.test." name=$customeName}}
+</div>
+
+<div>
+    <a href='{{trans "%confirmationUrl" confirmationUrl=$recommendationUrl }}'>{{trans 'Confirm Recommendation'}}</a>
+</div>
+ 
+{{template config_path="design/email/footer_template"}}

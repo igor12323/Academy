@@ -31,4 +31,10 @@ interface RecommendationRepositoryInterface
      * @return \Bulbulatory\Recommendations\Api\Data\RecommendationSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
+
+    public function createRecommendation($senderId,$email);
+
+    public function sendRecommendation(RecommendationInterface $recommendation);
+
+    public function confirmRecommendation($hash);
 }
