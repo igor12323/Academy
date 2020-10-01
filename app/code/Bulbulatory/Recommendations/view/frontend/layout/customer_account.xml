@@ -2,7 +2,7 @@
     xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
        <referenceBlock name="customer_account_navigation">
-            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom" ifconfig="recommendations/general/enable">
                 <arguments>
                     <argument name="label" xsi:type="string">Polecenia</argument> 
                     <argument name="path" xsi:type="string">bulbulatory_recommendations/recommendation/index</argument>
