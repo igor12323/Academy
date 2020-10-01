@@ -1,0 +1,17 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+layout="2columns-left" 
+xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"> 
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title"> 
+            <action method="setPageTitle"> 
+                <argument translate="true" name="title" xsi:type="string">Polecenia</argument> 
+            </action> 
+        </referenceBlock> 
+        <referenceContainer name="content">
+            <block class="Bulbulatory\Recommendations\Block\Recommendation\Index" 
+            name="bulbulatory_recommendations_recommendation_index" 
+            template="Bulbulatory_Recommendations::recommendation/index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
