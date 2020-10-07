@@ -1,6 +1,3 @@
-<?php
-
-?>
 <form action="<?=$block->getFormAction()?>" method="post">
     <div class="form-group">
         <label for="recommendation_email">E-mail: </label>
@@ -8,3 +5,54 @@
     </div>
     <input type="submit" value="Wyślij" class="action submit primary">
 </form>
+
+<table>
+        <tr>
+            <th scope="col" class="col recommendations"><?php echo __('Recommendations') ?></th>
+            <th scope="col" class="col confirmed"><?php echo __('Confirmed recommendations') ?></th> 
+            <th scope="col" class="col status"> <?php echo __('Discount') ?></th>
+        </tr>
+        <tr>
+            <td><?php echo $block->getCountSended()?> </td>
+            <td><?php echo $block->getCountConfirmed()?></td>
+            <td><?php echo $block->getDiscount()?>%</td>
+        </tr>
+    </table>
+<?php $recommendations = $block->getCustomCollection(); ?>
+<?php if ($recommendations && sizeof($recommendations)): ?>
+    <div class="table-wrapper recommendations-history">
+        <table class="data table table-recommendation-items history" id="my-recommendations-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col email"><?php echo __('Email') ?></th>
+                <th scope="col" class="col date"><?php echo __('Created At') ?></th> 
+                <th scope="col" class="col status"> <?php echo __('Status') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($recommendations as $recommendation):?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('Email')) ?>" 
+                        class="col email"><?php echo $recommendation['email_address'] ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Created At')) ?>"
+                        class="col date"><?php echo date('Y-m-d', strtotime($recommendation->getCreationDate())); ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Status')) ?>"
+                        class="col status"><?php echo $this->getStatusText($recommendation->getStatus()) ?>
+                    </td>
+                
+                </tr>
+            <?php 
+        endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="recommendations-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('No any record.'); ?></span></div>
+<?php endif ?>
