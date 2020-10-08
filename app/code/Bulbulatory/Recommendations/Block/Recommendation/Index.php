@@ -72,9 +72,9 @@ class Index extends Template
     {
         if($status)
         {
-            return "Potwierdzona";
+            return __("Confirmed");
         }
-        return "Niepotwierdzona";
+        return __("Unconfirmed");
     }
 
     public function getFormAction()
