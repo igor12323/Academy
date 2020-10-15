@@ -1,0 +1,8 @@
+<!-- ko if: isDisplayedRecommendationdiscount() -->
+    <tr class="totals recommendationdiscount excl">
+    <th class="mark" colspan="1" scope="row" data-bind="text: recommendation_discount"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getRecommendationDiscount(), attr: {'data-th': recommendation_discount}"></span>
+    </td>
+ </tr>
+ <!-- /ko -->
